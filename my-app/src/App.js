@@ -41,8 +41,8 @@ class App extends Component {
     if(!this.shouldComponentRender()) return <LoadingSpinner />
 
     return (
-      <div className="container">
-      <Header/>
+      <div>
+          <Header/>
           <Homepage data={data}/>
           {data.location}
       </div> 
