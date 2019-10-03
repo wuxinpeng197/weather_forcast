@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 // import { connect } from "react-redux";
+import './App.css';
 import Header from "./components/Header";
 import Homepage from './components/Homepage';
-import styled from "styled-components";
 import LoadingSpinner from './components/LoadingSpinner';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-
+import 'bootstrap/dist/css/bootstrap.min.css';
 import fetchProductsAction from './api/index';
 import {getProductsError, getProducts, getProductsPending} from './reducer/index';
 
