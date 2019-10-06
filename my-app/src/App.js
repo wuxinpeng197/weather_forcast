@@ -4,12 +4,12 @@ import './App.css';
 import Header from "./components/Header";
 import Homepage from './components/Homepage';
 import LoadingSpinner from './components/LoadingSpinner';
-import PropTypes from 'prop-types';
+import { Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import fetchProductsAction from './api/index';
-import {getProductsError, getProducts, getProductsPending} from './reducer/index';
+import {getProductsError, getProducts, getProductsPending} from './reducer/Weather';
 
 
 
@@ -18,7 +18,7 @@ class App extends Component {
 
   constructor(props) {
     super(props);
-    this.shouldComponentRender = this.shouldComponentRender.bind(this);
+    // this.shouldComponentRender = this.shouldComponentRender.bind(this);
   }
 
   componentDidMount(){
@@ -26,25 +26,18 @@ class App extends Component {
     this.props.fetchProducts();
   }
 
-  shouldComponentRender() {
-    const {pending} = this.props;
-    console.log("should:",pending)
-    if(pending === false) return true;
-    // more tests
-    return true;
-}
 
   render() {
     const primaryColor = "orange darken-2";
     const {data, error, pending} = this.props;
     console.log("render",pending,data,error)
-    if(!this.shouldComponentRender()) return <LoadingSpinner />
+    if ( this.props.pending ) {return <LoadingSpinner/>}
 
     return (
       <div>
           <Header/>
           <Homepage data={data}/>
-          {data.location}
+          {/*{data.location}*/}
       </div> 
   
   );
@@ -54,11 +47,11 @@ const mapStateToProps = state => ({
   error: getProductsError(state),
   data: getProducts(state),
   pending: getProductsPending(state)
-})
+});
 
 const mapDispatchToProps = dispatch => bindActionCreators({
   fetchProducts: fetchProductsAction
-}, dispatch)
+}, dispatch);
 
 
 export default connect(
